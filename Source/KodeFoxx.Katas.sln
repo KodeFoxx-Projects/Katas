@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FizzBuzz", "FizzBuzz", "{19
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodefoxx.Katas.FizzBuzz.Tests", "Algorithmic\FizzBuzz\Kodefoxx.Katas.FizzBuzz.Tests\Kodefoxx.Katas.FizzBuzz.Tests.csproj", "{6526229A-992D-48BB-ACC9-8755CB66D583}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,10 @@ Global
 		{584F01C6-3A58-4CD0-A899-D94792176E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{584F01C6-3A58-4CD0-A899-D94792176E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{584F01C6-3A58-4CD0-A899-D94792176E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6526229A-992D-48BB-ACC9-8755CB66D583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6526229A-992D-48BB-ACC9-8755CB66D583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6526229A-992D-48BB-ACC9-8755CB66D583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6526229A-992D-48BB-ACC9-8755CB66D583}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -29,6 +35,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{584F01C6-3A58-4CD0-A899-D94792176E32} = {19BAF391-209D-499E-8D78-E003FC31A887}
 		{19BAF391-209D-499E-8D78-E003FC31A887} = {D3003F8E-4590-4976-812D-DB714F7E176C}
+		{6526229A-992D-48BB-ACC9-8755CB66D583} = {19BAF391-209D-499E-8D78-E003FC31A887}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61213541-8D83-4F61-8979-322B98C3171E}
