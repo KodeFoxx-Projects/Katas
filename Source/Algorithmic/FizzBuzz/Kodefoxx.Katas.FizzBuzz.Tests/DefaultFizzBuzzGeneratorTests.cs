@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Kodefoxx.Katas.FizzBuzz.Strategies;
 using Xunit;
 
 namespace Kodefoxx.Katas.FizzBuzz.Tests
@@ -25,6 +26,15 @@ namespace Kodefoxx.Katas.FizzBuzz.Tests
                 GenerateMultiplesOf(3, IsNotAMultipleOfThreeAndFive)
         );
 
+        [Theory, MemberData(nameof(Multiples_of_three_and_numbers_containing_three_should_have_the_value_Fizz_when_using_stage2_TestData))]
+        public void Multiples_of_three_and_numbers_containing_three_should_have_the_value_Fizz_when_using_stage2(int multipleOfThree)
+            => Assert.Equal("Fizz", CreateSystemUnderTest(new Stage2FizzBuzzCalculationStrategy()).Generate()[multipleOfThree]);
+
+        public static IEnumerable<object[]> Multiples_of_three_and_numbers_containing_three_should_have_the_value_Fizz_when_using_stage2_TestData()
+            => ToEnumerableOfObjectArray(
+                GenerateMultiplesOf(3, number => IsNotAMultipleOfThreeAndFive(number) && ContainsTheNumberThree(number))
+            );
+
         [Theory, MemberData(nameof(Multiples_of_five_should_have_the_value_Buzz_TestData))]
         public void Multiples_of_five_should_have_the_value_Buzz(int multipleOfFive)
             => Assert.Equal("Buzz", CreateSystemUnderTest().Generate()[multipleOfFive]);
@@ -33,6 +43,15 @@ namespace Kodefoxx.Katas.FizzBuzz.Tests
             => ToEnumerableOfObjectArray(
                 GenerateMultiplesOf(5, IsNotAMultipleOfThreeAndFive)
         );
+
+        [Theory, MemberData(nameof(Multiples_of_five_and_numbers_containing_five_should_have_the_value_Buzz_when_using_stage2_TestData))]
+        public void Multiples_of_five_and_numbers_containing_five_should_have_the_value_Buzz_when_using_stage2(int multipleOfFive)
+            => Assert.Equal("Buzz", CreateSystemUnderTest(new Stage2FizzBuzzCalculationStrategy()).Generate()[multipleOfFive]);
+
+        public static IEnumerable<object[]> Multiples_of_five_and_numbers_containing_five_should_have_the_value_Buzz_when_using_stage2_TestData()
+            => ToEnumerableOfObjectArray(
+                GenerateMultiplesOf(3, number => IsNotAMultipleOfThreeAndFive(number) && ContainsTheNumberFive(number))
+            );
 
         [Theory, MemberData(nameof(Multiples_of_three_and_five_should_have_the_value_FizzBuzz_TestData))]
         public void Multiples_of_three_and_five_should_have_the_value_FizzBuzz(int multipleOfFive)
@@ -71,18 +90,29 @@ namespace Kodefoxx.Katas.FizzBuzz.Tests
             => number => !IsAMultipleOfThreeAndFive(number);
 
         /// <summary>
-        /// Predicate that takes an <see cref="int"/> and determines whether it isn't a multiple of three and five.
+        /// Predicate that takes an <see cref="int"/> and determines whether it is a multiple of three and five.
         /// </summary>
         private static Func<int, bool> IsAMultipleOfThreeAndFive
             => number => number % (3 * 5) == 0;
 
         /// <summary>
+        /// Predicate that takes an <see cref="int"/> and determines whether it contains the number three.
+        /// </summary>
+        private static Func<int, bool> ContainsTheNumberThree
+            => number => number.ToString().Contains("3");
+
+        /// <summary>
+        /// Predicate that takes an <see cref="int"/> and determines whether it contains the number five.
+        /// </summary>
+        private static Func<int, bool> ContainsTheNumberFive
+            => number => number.ToString().Contains("5");
+
+        /// <summary>
         /// Creates a new <see cref="IFizzBuzzGenerator"/> instance.
         /// </summary>
         /// <returns>A new <see cref="IFizzBuzzGenerator"/> instance</returns>
-        private IFizzBuzzGenerator CreateSystemUnderTest()
-            => new DefaultFizzBuzzGenerator();
+        private IFizzBuzzGenerator CreateSystemUnderTest(IFizzBuzzCalculationStrategy fizzBuzzCalculationStrategy = null)
+            => new DefaultFizzBuzzGenerator(fizzBuzzCalculationStrategy ?? new Stage1FizzBuzzCalculationStrategy());
         #endregion
-
     }
 }
