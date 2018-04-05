@@ -17,4 +17,14 @@
     <ProjectReference Include="..\Kodefoxx.Katas.Anagrams\Kodefoxx.Katas.Anagrams.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
