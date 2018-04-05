@@ -18,6 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.FizzBuzz.Run
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.FizzBuzz.Tests", "Katas\FizzBuzz\Kodefoxx.Katas.FizzBuzz.Tests\Kodefoxx.Katas.FizzBuzz.Tests.csproj", "{B56B295A-EC55-4A87-95E7-31F797655ACC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Anagrams", "Anagrams", "{E6F156C8-2D8D-4173-BCFF-47C043ACBE54}"
+	ProjectSection(SolutionItems) = preProject
+		Katas\Anagrams\README.md = Katas\Anagrams\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +50,7 @@ Global
 		{F7F4EE3E-BBD4-44F4-B3C8-D3CE6AC1E3A0} = {19BAF391-209D-499E-8D78-E003FC31A887}
 		{49A93656-6055-456A-BC24-97BEE238C9E1} = {19BAF391-209D-499E-8D78-E003FC31A887}
 		{B56B295A-EC55-4A87-95E7-31F797655ACC} = {19BAF391-209D-499E-8D78-E003FC31A887}
+		{E6F156C8-2D8D-4173-BCFF-47C043ACBE54} = {F979814F-C26C-470E-A58A-07D211288FC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61213541-8D83-4F61-8979-322B98C3171E}
