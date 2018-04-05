@@ -12,7 +12,7 @@ namespace Kodefoxx.Katas.Anagrams.Runner
     {
         static void Main(string[] args)
         {            
-            var anagramSolvers = FindAnagramSolvers();
+            var anagramSolvers = FindAnagramSolvers().ToList();
             var wordLists = LoadWordListFromFile(args);
 
             Console.Clear();
