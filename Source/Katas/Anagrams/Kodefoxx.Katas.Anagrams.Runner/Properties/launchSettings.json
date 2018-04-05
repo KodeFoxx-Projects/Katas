@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Kodefoxx.Katas.Anagrams.Runner": {
+      "commandName": "Project",
+      "commandLineArgs": "english3.txt nederlands3.txt wordlist.txt"
+    }
+  }
+}
