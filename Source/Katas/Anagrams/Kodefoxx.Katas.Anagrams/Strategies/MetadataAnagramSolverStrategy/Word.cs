@@ -38,6 +38,6 @@ namespace Kodefoxx.Katas.Anagrams.Strategies.MetadataAnagramSolverStrategy
         /// <summary>
         /// The unique letters sortable key.
         /// </summary>
-        public string UniqueLettersSortKey => String.Join("", UniqueLetters.OrderBy(c => c));
+        public string LettersSortKey => String.Join("", Letters.OrderBy(c => c));
     }
 }

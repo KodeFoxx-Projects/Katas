@@ -41,10 +41,10 @@ namespace Kodefoxx.Katas.Anagrams.Strategies.MetadataAnagramSolverStrategy
 
             foreach (var word in wordsWithMetaData)
             {
-                if (!anagramDictionary.ContainsKey(word.UniqueLettersSortKey))                
-                    anagramDictionary.Add(word.UniqueLettersSortKey, new Anagram(word.Text));                
+                if (!anagramDictionary.ContainsKey(word.LettersSortKey))                
+                    anagramDictionary.Add(word.LettersSortKey, new Anagram(word.Text));                
                 else                
-                    anagramDictionary[word.UniqueLettersSortKey].Words.Add(word.Text);                             
+                    anagramDictionary[word.LettersSortKey].AddWord(word.Text);                             
             }
 
             return GetAnagramsContainingMoreThanOneWord(anagramDictionary);

@@ -14,7 +14,7 @@ namespace Kodefoxx.Katas.Anagrams.Shared
         /// </summary>
         /// <param name="words">The words of the anagram.</param>
         public Anagram(IEnumerable<string> words)
-            => Words = words?.ToList() ?? new List<string>();
+            => _words = words?.ToList() ?? new List<string>();
         
         /// <summary>
         /// Constructs a new anagram based on a single word.
@@ -25,7 +25,19 @@ namespace Kodefoxx.Katas.Anagrams.Shared
         /// <summary>
         /// The words of the anagram.
         /// </summary>
-        public List<string> Words { get; }
+        public IReadOnlyList<string> Words => _words;
+
+        private readonly List<string> _words;
+
+        /// <summary>
+        /// Adds a word to the list if it doesn't exist already.
+        /// </summary>
+        /// <param name="word">The word to add.</param>
+        public void AddWord(string word)
+        {
+            if(!_words.Contains(word))
+                _words.Add(word);
+        }
 
         /// <summary>
         /// The amount of words the anagram contains.
