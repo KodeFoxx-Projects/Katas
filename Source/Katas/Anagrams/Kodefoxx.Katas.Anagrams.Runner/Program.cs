@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Kodefoxx.Katas.Anagrams.Shared;
 using Kodefoxx.Katas.Anagrams.Strategies.MetadataAnagramSolverStrategy;
+using Kodefoxx.Katas.Anagrams.Strategies.QuickAnagramSolverStrategy;
 
 namespace Kodefoxx.Katas.Anagrams.Runner
 {
@@ -58,6 +59,7 @@ namespace Kodefoxx.Katas.Anagrams.Runner
             Console.WriteLine("Getting IAnagramSolver implementations...");
             return new List<IAnagramSolver>
             {
+                new QuickAnagramSolver(),
                 new MetadataAnagramSolver()
             };
         }        
