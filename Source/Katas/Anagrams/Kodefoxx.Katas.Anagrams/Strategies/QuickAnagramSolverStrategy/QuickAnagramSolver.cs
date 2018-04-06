@@ -23,7 +23,7 @@ namespace Kodefoxx.Katas.Anagrams.Strategies.QuickAnagramSolverStrategy
             {
                 var key = CreateAnagramKey(word);
                 if(!anagramsDictionary.ContainsKey(key))
-                    anagramsDictionary.Add(key, new List<string>() { word });
+                    anagramsDictionary.Add(key, new List<string> { word });
                 else
                     anagramsDictionary[key].Add(word);
             }
