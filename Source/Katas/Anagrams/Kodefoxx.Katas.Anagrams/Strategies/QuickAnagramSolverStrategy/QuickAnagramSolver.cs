@@ -38,6 +38,7 @@ namespace Kodefoxx.Katas.Anagrams.Strategies.QuickAnagramSolverStrategy
         ;
 
         private string CreateAnagramKey(string word)
-            => String.Join("", word.ToCharArray().OrderBy(c => c).ToList());        
+            => String.Join("", word.ToCharArray().OrderBy(c => c).ToList())
+        ;
     }
 }
