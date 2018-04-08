@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Kodefoxx.Katas.Anagrams.Shared;
 using Kodefoxx.Katas.Anagrams.Strategies.MetadataAnagramSolverStrategy;
 using Xunit;

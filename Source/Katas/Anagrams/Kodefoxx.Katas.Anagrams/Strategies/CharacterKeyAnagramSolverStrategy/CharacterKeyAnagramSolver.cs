@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Kodefoxx.Katas.Anagrams.Shared;
 
-namespace Kodefoxx.Katas.Anagrams.Strategies.QuickAnagramSolverStrategy
+namespace Kodefoxx.Katas.Anagrams.Strategies.CharacterKeyAnagramSolverStrategy
 {
     /// <inheritdocs />
     /// <summary>
-    /// Quicker implementation which holds the basics of the metadata, but without extra object instantiation.
+    /// Implementation which holds the basics of the metadata, but without extra object instantiation.
     /// Optimizations:
     ///  - Filters out the words that are only one letter long.
     /// </summary>   
-    public sealed class QuickAnagramSolver : AnagramSolver
+    public sealed class CharacterKeyAnagramSolver : AnagramSolver
     {
         public override Task<IEnumerable<Anagram>> ExecuteGetAnagramsAlgorithm(IEnumerable<string> words)
         {
