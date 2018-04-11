@@ -1,5 +1,8 @@
-﻿namespace Kodefoxx.Katas.FourInARow.Board
+﻿using System.Diagnostics;
+
+namespace Kodefoxx.Katas.FourInARow.Board
 {
+    [DebuggerDisplay("C:{Position.Column}R:{Position.Row} {Value}")]
     public sealed class BoardSlot
     {
         /// <summary>

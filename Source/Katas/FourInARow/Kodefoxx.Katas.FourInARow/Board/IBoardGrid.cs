@@ -17,5 +17,10 @@
         /// </summary>
         /// <param name="columnIndex">The index of the column to check.</param>        
         bool IsColumnFull(int columnIndex);
+
+        /// <summary>
+        /// Determines whether the board is full.
+        /// </summary>        
+        bool IsBoardFull();
     }
 }

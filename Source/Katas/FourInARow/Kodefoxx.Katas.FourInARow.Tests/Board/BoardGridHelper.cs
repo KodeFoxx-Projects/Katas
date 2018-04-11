@@ -13,5 +13,15 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                 {BoardSlotValue.Empty, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo}
             })
         ;
+
+        public static IBoardGrid CreateFullBoard()
+            => new BoardGrid(new[,]
+            {
+                {BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo},
+                {BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo},
+                {BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerOne},
+                {BoardSlotValue.PlayerOne, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo}
+            })
+        ;
     }
 }
