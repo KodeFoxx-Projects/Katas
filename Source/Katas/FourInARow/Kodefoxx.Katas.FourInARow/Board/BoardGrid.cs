@@ -2,6 +2,7 @@
 using System.Linq;
 using Kodefoxx.Katas.FourInARow.Board.Exceptions;
 using Kodefoxx.Katas.FourInARow.Board.Winning;
+using Kodefoxx.Katas.FourInARow.Board.Winning.WinStateCalculators;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {
@@ -87,7 +88,7 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// <param name="boardSlotValue">The value to set.</param>
         /// <param name="boardPosition">The position where to set it.</param>
         private void SetValueOnPosition(BoardSlotValue boardSlotValue, BoardPosition boardPosition)
-            => Grid[boardPosition.Row - 1, boardPosition.Column - 1] = boardSlotValue;
+            => _grid[boardPosition.Row - 1, boardPosition.Column - 1] = boardSlotValue;
 
         /// <summary>
         /// Gets the first valid <see cref="BoardPosition"/> where one can slide a value for a given <paramref name="columnIndex"/>.

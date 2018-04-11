@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Kodefoxx.Katas.FourInARow.Board.Winning.WinStateCalculators;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {
@@ -8,7 +11,12 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// <summary>
         /// The internal grid that holds the values/state of the game.
         /// </summary>
-        protected readonly BoardSlotValue[,] Grid;
+        protected readonly BoardSlotValue[,] _grid;
+
+        /// <summary>
+        /// The win state calculators loaded.
+        /// </summary>
+        protected readonly IEnumerable<IWinStateCalculator> _winStateCalculators;
 
         /// <summary>
         /// Creates a new <see cref="BoardGrid"/>.
@@ -16,7 +24,8 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// <param name="width">The width of the board.</param>
         /// <param name="height">The height of the board.</param>
         internal ReadOnlyBoardGrid(int width, int height)
-            => Grid = CreateNewEmptyGridArray(width, height);
+            : this(CreateNewEmptyGridArray(width, height))
+        { }
 
         /// <summary>
         /// Creates a new <see cref="BoardGrid"/>.
@@ -31,20 +40,23 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// </summary>
         /// <param name="boardSlotValues"></param>
         internal ReadOnlyBoardGrid(BoardSlotValue[,] boardSlotValues)
-            => Grid = boardSlotValues;
+        {
+            _grid = boardSlotValues;
+            _winStateCalculators = GetWinStateCalculators();
+        }        
 
         /// <inheritdocs/>
         public IReadOnlyList<BoardSlot> State
-            => Grid
+            => _grid
                 .ToBoardSlots()
                 .ToList()
                 .AsReadOnly();
 
         /// <inheritdocs/>
-        public int Rows => Grid.ToBoardSize().Height;
+        public int Rows => _grid.ToBoardSize().Height;
 
         /// <inheritdocs/>
-        public int Columns => Grid.ToBoardSize().Width;
+        public int Columns => _grid.ToBoardSize().Width;
 
         /// <summary>
         /// Creates a new empty grid array.
@@ -52,7 +64,7 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// <param name="width">The width of the grid.</param>
         /// <param name="height">The height of the grid.</param>
         /// <returns></returns>
-        private BoardSlotValue[,] CreateNewEmptyGridArray(int columns, int rows)
+        private static BoardSlotValue[,] CreateNewEmptyGridArray(int columns, int rows)
         {
             var grid = new BoardSlotValue[rows, columns];
             var gridSize = grid.ToBoardSize();
@@ -65,5 +77,20 @@ namespace Kodefoxx.Katas.FourInARow.Board
 
             return grid;
         }
+
+        /// <summary>
+        /// Scans the assembly for <see cref="IWinStateCalculator"/> instances.
+        /// </summary>        
+        private IEnumerable<IWinStateCalculator> GetWinStateCalculators()
+            => GetType()
+                .Assembly
+                .GetTypes()
+                .Where(t => !t.IsInterface && !t.IsAbstract)
+                .Where(t => t.IsClass)
+                .Where(t => t.GetInterfaces().Contains(typeof(IWinStateCalculator)))
+                .Select(t => Activator.CreateInstance(t) as IWinStateCalculator)
+                .Where(i => i != null)
+                .ToList()
+        ;
     }
 }
