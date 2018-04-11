@@ -17,4 +17,10 @@
     <ProjectReference Include="..\Kodefoxx.Katas.FourInARow\Kodefoxx.Katas.FourInARow.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
