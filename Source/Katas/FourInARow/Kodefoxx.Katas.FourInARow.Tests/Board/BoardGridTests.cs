@@ -84,6 +84,6 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                     new BoardSize(2, 3) // 2 columns, 3 rows
                 },
             }
-        ;
+        ;        
     }
 }

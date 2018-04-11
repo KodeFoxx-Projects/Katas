@@ -1,9 +1,11 @@
-﻿namespace Kodefoxx.Katas.FourInARow.Board
+﻿using Kodefoxx.Katas.FourInARow.Board.Winning;
+
+namespace Kodefoxx.Katas.FourInARow.Board
 {
     /// <summary>
     /// Represents the 2d grid board the game is played on.
     /// </summary>
-    public interface IBoardGrid
+    public interface IBoardGrid : IReadOnlyBoardGrid
     {
         /// <summary>
         /// Drops a value into the specified column of the board.
@@ -22,5 +24,15 @@
         /// Determines whether the board is full.
         /// </summary>        
         bool IsBoardFull();
+
+        /// <summary>
+        /// Determines whether the board has a winner.
+        /// </summary>        
+        bool HasWinner();
+
+        /// <summary>
+        /// Calculates the <see cref="WinState"/>.
+        /// </summary>       
+        WinState GetWinState();
     }
 }

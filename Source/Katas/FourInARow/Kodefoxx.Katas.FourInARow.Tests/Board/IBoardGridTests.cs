@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Kodefoxx.Katas.FourInARow.Board;
 using Kodefoxx.Katas.FourInARow.Board.Exceptions;
+using Kodefoxx.Katas.FourInARow.Board.Winning;
 using Xunit;
 
 namespace Kodefoxx.Katas.FourInARow.Tests.Board
@@ -45,7 +47,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
             var columnIndex = 3;
 
             var exception = Assert.Throws<ColumnIsFullException>(
-                () => sut.DropValueIntoColumn(BoardSlotValue.PlayerOne, columnIndex)
+                () => sut.DropValueIntoColumn(BoardSlotValue.P1, columnIndex)
             );
 
             Assert.Equal(columnIndex, exception.ColumnIndex);
@@ -60,7 +62,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
             var sut = BoardGridHelper.CreateFourByFourBoard();            
 
             var state = sut
-                .DropValueIntoColumn(BoardSlotValue.PlayerOne, columnIndex)
+                .DropValueIntoColumn(BoardSlotValue.P1, columnIndex)
                 .State;
             var actualSlotsFree = state
                 .Count(slot => 
@@ -78,7 +80,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
         {
             var sut = BoardGridHelper.CreateFourByFourBoard();
             var exception = Assert.Throws<ColumnDoesntExistException>(
-                () => sut.DropValueIntoColumn(BoardSlotValue.PlayerOne, columnIndex)
+                () => sut.DropValueIntoColumn(BoardSlotValue.P1, columnIndex)
             );
             Assert.Equal(columnIndex, exception.ColumnIndex);
         }
@@ -93,10 +95,37 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
             var sut = BoardGridHelper.CreateFullBoard();            
 
             var exception = Assert.Throws<BoardIsFullException>(
-                () => sut.DropValueIntoColumn(BoardSlotValue.PlayerOne, columnIndex)
+                () => sut.DropValueIntoColumn(BoardSlotValue.P1, columnIndex)
             );
             
             Assert.Equal("Board is full.", exception.Message);
         }
+
+        [Theory, MemberData(nameof(Can_detect_WinState_TestData))]
+        public void Can_detect_winner(IBoardGrid boardGrid, WinState expectedWinState)
+        {
+            var actualWinState = boardGrid.GetWinState();
+
+            Assert.True(boardGrid.HasWinner());
+            Assert.NotNull(actualWinState.Winner);
+
+            Assert.Equal(expectedWinState.Method, actualWinState.Method);
+            Assert.Equal(expectedWinState.HasWinner, actualWinState.HasWinner);
+            Assert.Equal(expectedWinState.Winner, actualWinState.Winner);
+        }
+
+        public static IEnumerable<object[]> Can_detect_WinState_TestData()
+            => BoardGridHelper
+                .CreateWinningBoardGridForPlayerOne()
+                .Boards
+                .Where(x => 
+                    x.WinMethod != WinMethod.None
+                 && x.WinMethod != WinMethod.Draw
+                )
+                .Select(x => new object[]
+                {
+                    x.Board,
+                    new WinState(x.WinMethod, BoardSlotValue.P1),
+                });
     }
 }

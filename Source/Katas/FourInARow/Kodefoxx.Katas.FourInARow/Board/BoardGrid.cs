@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Kodefoxx.Katas.FourInARow.Board.Exceptions;
+using Kodefoxx.Katas.FourInARow.Board.Winning;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {
@@ -40,6 +41,14 @@ namespace Kodefoxx.Katas.FourInARow.Board
         public bool IsBoardFull()
             => State
                 .All(slot => slot.Value != BoardSlotValue.Empty);
+
+        /// <inheritdocs/>
+        public bool HasWinner()
+            => GetWinState().HasWinner;
+
+        /// <inheritdocs/>
+        public WinState GetWinState()
+            => new WinState(WinMethod.None);        
 
         /// <inheritdocs/>
         public IReadOnlyBoardGrid DropValueIntoColumn(BoardSlotValue boardSlotValue, int columnIndex)

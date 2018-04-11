@@ -6,7 +6,7 @@
     public enum BoardSlotValue
     {
         Empty,
-        PlayerOne,
-        PlayerTwo
+        P1,
+        P2
     }
 }

@@ -1,4 +1,7 @@
-﻿using Kodefoxx.Katas.FourInARow.Board;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Kodefoxx.Katas.FourInARow.Board;
+using Kodefoxx.Katas.FourInARow.Board.Winning;
 
 namespace Kodefoxx.Katas.FourInARow.Tests.Board
 {
@@ -7,21 +10,86 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
         public static IBoardGrid CreateFourByFourBoard()
             => new BoardGrid(new[,]
             {
-                {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.PlayerOne, BoardSlotValue.Empty},
-                {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.PlayerOne, BoardSlotValue.Empty},
-                {BoardSlotValue.Empty, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo, BoardSlotValue.Empty},
-                {BoardSlotValue.Empty, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo}
-            })
-        ;
+                {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty},
+                {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty},
+                {BoardSlotValue.Empty, BoardSlotValue.P2, BoardSlotValue.P2, BoardSlotValue.Empty},
+                {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2}
+            });
 
         public static IBoardGrid CreateFullBoard()
             => new BoardGrid(new[,]
             {
-                {BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo},
-                {BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo},
-                {BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerOne},
-                {BoardSlotValue.PlayerOne, BoardSlotValue.PlayerOne, BoardSlotValue.PlayerTwo, BoardSlotValue.PlayerTwo}
-            })
-        ;
-    }
+                {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P1, BoardSlotValue.P2},
+                {BoardSlotValue.P2, BoardSlotValue.P2, BoardSlotValue.P1, BoardSlotValue.P2},
+                {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2, BoardSlotValue.P1},
+                {BoardSlotValue.P1, BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2}
+            });
+
+        public static (BoardSlotValue Winner, IEnumerable<(WinMethod WinMethod, IBoardGrid Board)> Boards)
+            CreateWinningBoardGridForPlayerOne() => (
+            Winner: BoardSlotValue.P1,
+            Boards: new List<(WinMethod WinMethod, IBoardGrid Board)> {
+                (
+                    WinMethod: WinMethod.None,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty}
+                    })
+                ),
+                (
+                    WinMethod: WinMethod.None,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P2, BoardSlotValue.P2, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2}
+                    })
+                ),
+                (
+                    WinMethod: WinMethod.Row,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.P1, BoardSlotValue.P1, BoardSlotValue.P1, BoardSlotValue.P1}
+                    })
+                ),
+                (
+                    WinMethod: WinMethod.Column,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty}
+                    })
+                ),
+                (
+                    WinMethod: WinMethod.DiagonalTop,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1}
+                    })
+                ),
+                (
+                    WinMethod: WinMethod.DiagonalBottom,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1},
+                        {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty},
+                        {BoardSlotValue.Empty, BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty},
+                        {BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty}
+                    })
+                ),
+            }
+        );        
+}
 }
