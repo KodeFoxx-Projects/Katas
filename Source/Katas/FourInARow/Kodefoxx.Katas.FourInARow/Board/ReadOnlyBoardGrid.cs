@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Kodefoxx.Katas.FourInARow.Board.Winning.WinStateCalculators;
+using Kodefoxx.Katas.FourInARow.Winning.WinStateCalculators;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {

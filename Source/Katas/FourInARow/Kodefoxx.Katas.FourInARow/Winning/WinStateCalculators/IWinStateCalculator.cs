@@ -1,4 +1,6 @@
-﻿namespace Kodefoxx.Katas.FourInARow.Board.Winning.WinStateCalculators
+﻿using Kodefoxx.Katas.FourInARow.Board;
+
+namespace Kodefoxx.Katas.FourInARow.Winning.WinStateCalculators
 {
     /// <summary>
     /// Calculates a win state.

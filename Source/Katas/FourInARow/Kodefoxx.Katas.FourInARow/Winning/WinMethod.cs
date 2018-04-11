@@ -1,4 +1,4 @@
-﻿namespace Kodefoxx.Katas.FourInARow.Board.Winning
+﻿namespace Kodefoxx.Katas.FourInARow.Winning
 {
     public enum WinMethod
     {
