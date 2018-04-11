@@ -1,4 +1,6 @@
-﻿namespace Kodefoxx.Katas.FourInARow.Winning
+﻿using Kodefoxx.Katas.FourInARow.Board;
+
+namespace Kodefoxx.Katas.FourInARow.Winning
 {
     /// <summary>
     /// Represents the win state of the game.

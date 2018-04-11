@@ -1,4 +1,4 @@
-﻿using Kodefoxx.Katas.FourInARow.Board.Winning;
+﻿using Kodefoxx.Katas.FourInARow.Winning;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {

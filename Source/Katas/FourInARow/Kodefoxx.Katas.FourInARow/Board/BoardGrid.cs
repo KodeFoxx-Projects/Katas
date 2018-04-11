@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Kodefoxx.Katas.FourInARow.Board.Exceptions;
-using Kodefoxx.Katas.FourInARow.Board.Winning;
-using Kodefoxx.Katas.FourInARow.Board.Winning.WinStateCalculators;
+using Kodefoxx.Katas.FourInARow.Winning;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {
