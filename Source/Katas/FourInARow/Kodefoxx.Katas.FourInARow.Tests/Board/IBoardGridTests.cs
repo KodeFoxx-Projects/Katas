@@ -101,7 +101,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
             Assert.Equal("Board is full.", exception.Message);
         }
 
-        [Theory, MemberData(nameof(Can_detect_WinState_TestData))]
+        [Theory, MemberData(nameof(Can_detect_winner_TestData))]
         public void Can_detect_winner(IBoardGrid boardGrid, WinState expectedWinState)
         {
             var actualWinState = boardGrid.GetWinState();
@@ -114,7 +114,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
             Assert.Equal(expectedWinState.Winner, actualWinState.Winner);
         }
 
-        public static IEnumerable<object[]> Can_detect_WinState_TestData()
+        public static IEnumerable<object[]> Can_detect_winner_TestData()
             => BoardGridHelper
                 .CreateWinningBoardGridForPlayerOne()
                 .Boards
@@ -126,6 +126,30 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                 {
                     x.Board,
                     new WinState(x.WinMethod, BoardSlotValue.P1),
+                });
+
+        [Theory, MemberData(nameof(Can_detect_draw_TestData))]
+        public void Can_detect_draw(IBoardGrid boardGrid, WinState expectedWinState)
+        {
+            var actualWinState = boardGrid.GetWinState();
+
+            Assert.False(boardGrid.HasWinner());
+            Assert.Null(actualWinState.Winner);
+
+            Assert.Equal(expectedWinState.Method, actualWinState.Method);
+            Assert.Equal(expectedWinState.HasWinner, actualWinState.HasWinner);
+            Assert.Equal(expectedWinState.Winner, actualWinState.Winner);
+        }
+
+        public static IEnumerable<object[]> Can_detect_draw_TestData()
+            => BoardGridHelper
+                .CreateWinningBoardGridForPlayerOne()
+                .Boards
+                .Where(x => x.WinMethod == WinMethod.Draw)
+                .Select(x => new object[]
+                {
+                    x.Board,
+                    new WinState(x.WinMethod),
                 });
     }
 }
