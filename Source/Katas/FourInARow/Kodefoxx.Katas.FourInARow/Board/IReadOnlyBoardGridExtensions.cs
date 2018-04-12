@@ -57,5 +57,7 @@ namespace Kodefoxx.Katas.FourInARow.Board
                     elementSelector: boardGrid.GetBoardSlotsForRow
                 )
         ;
+
+
     }
 }

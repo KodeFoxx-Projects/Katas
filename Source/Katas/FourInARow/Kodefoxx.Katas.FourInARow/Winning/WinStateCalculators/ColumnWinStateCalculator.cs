@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Kodefoxx.Katas.FourInARow.Board;
 
 namespace Kodefoxx.Katas.FourInARow.Winning.WinStateCalculators

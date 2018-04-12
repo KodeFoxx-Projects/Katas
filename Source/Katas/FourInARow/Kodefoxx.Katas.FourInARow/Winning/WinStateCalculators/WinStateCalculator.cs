@@ -35,12 +35,14 @@ namespace Kodefoxx.Katas.FourInARow.Winning.WinStateCalculators
         /// <param name="winningCount">The amount needed for a win.</param>
         protected WinStateCalculatorResult CalculateWinStateCalculatorResultForBoardSlotDictionary(
             IDictionary<int, IEnumerable<BoardSlot>> boardSlotDictionary,
-            Func<IEnumerable<BoardSlot>, IOrderedEnumerable<BoardSlot>> orderFunction,
+            Func<IEnumerable<BoardSlot>, IOrderedEnumerable<BoardSlot>> orderFunction = null,
             int winningCount = 4)
         {
-            foreach (var boardSlots in boardSlotDictionary.Values)
+            foreach (var boardSlots in boardSlotDictionary.Values.Select(boardSlots => boardSlots.ToList()))
             {
-                var orderedSlots = orderFunction(boardSlots);
+                if (boardSlots.Count < winningCount) continue;
+
+                var orderedSlots = orderFunction?.Invoke(boardSlots) ?? boardSlots.OrderBy(x => x);
                 var result = CalculateForOrderedBoardSlotValues(orderedSlots, winningCount);
                 if (result.Winner.HasValue)
                     return result;
