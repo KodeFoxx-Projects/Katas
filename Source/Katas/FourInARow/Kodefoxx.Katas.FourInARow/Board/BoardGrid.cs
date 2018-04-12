@@ -48,7 +48,16 @@ namespace Kodefoxx.Katas.FourInARow.Board
 
         /// <inheritdocs/>
         public WinState GetWinState()
-            => new WinState(WinMethod.None);        
+        {
+            foreach (var winStateCalculator in _winStateCalculators)
+            {
+                var result = winStateCalculator.Calculate(this);
+                if(result.Winner.HasValue)
+                    return new WinState(result.Method, result.Winner);
+            }
+
+            return new WinState(WinMethod.None);
+        }                   
 
         /// <inheritdocs/>
         public IReadOnlyBoardGrid DropValueIntoColumn(BoardSlotValue boardSlotValue, int columnIndex)

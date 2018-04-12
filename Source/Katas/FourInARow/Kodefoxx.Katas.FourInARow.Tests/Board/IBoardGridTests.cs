@@ -101,7 +101,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
         }
 
         [Theory, MemberData(nameof(Can_detect_winner_TestData))]
-        public void Can_detect_winner(IBoardGrid boardGrid, WinState expectedWinState)
+        public void Can_detect_winner(string useCase, IBoardGrid boardGrid, WinState expectedWinState)
         {
             var actualWinState = boardGrid.GetWinState();
 
@@ -123,6 +123,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                 )
                 .Select(x => new object[]
                 {
+                    $"Board is in method '{x.WinMethod}' of 4 times",
                     x.Board,
                     new WinState(x.WinMethod, BoardSlotValue.P1),
                 });
