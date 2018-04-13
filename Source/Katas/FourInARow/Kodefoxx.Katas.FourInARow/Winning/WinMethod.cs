@@ -6,7 +6,7 @@
         Draw,
         Column,
         Row,
-        DiagonalTop,
-        DiagonalBottom,
+        DiagonalTopToBottom,
+        DiagonalBottomToTop,
     }
 }

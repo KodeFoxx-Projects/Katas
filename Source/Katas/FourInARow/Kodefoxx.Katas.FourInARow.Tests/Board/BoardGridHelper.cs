@@ -69,7 +69,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                     })
                 ),
                 (
-                    WinMethod: WinMethod.DiagonalTop,
+                    WinMethod: WinMethod.DiagonalTopToBottom,
                     Board: new BoardGrid(new[,]
                     {
                         {BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty},
@@ -79,7 +79,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                     })
                 ),
                 (
-                    WinMethod: WinMethod.DiagonalBottom,
+                    WinMethod: WinMethod.DiagonalBottomToTop,
                     Board: new BoardGrid(new[,]
                     {
                         {BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.P1},

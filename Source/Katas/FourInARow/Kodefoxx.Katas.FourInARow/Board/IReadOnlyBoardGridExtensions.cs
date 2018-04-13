@@ -67,19 +67,7 @@ namespace Kodefoxx.Katas.FourInARow.Board
                 .Concat(GetPositionsTopToBottomLeftHalf(boardGrid))
                 .Concat(GetPositionsTopToBottomRightHalf(boardGrid));
 
-            var boardSlotsCollection = boardPositionsCollection
-                .Select(boardPositions =>                
-                    boardPositions
-                        .Select(boardPosition => boardGrid.State.SingleOrDefault(slot => slot.Position.Equals(boardPosition)))
-                        .Where(slot => slot != null)
-                )
-                .ToList();
-
-            return boardSlotsCollection.Select((boardSlots, i) => new { BoardSlots = boardSlots, Index = i})
-                .ToDictionary(
-                    keySelector: kvp => kvp.Index,
-                    elementSelector: kvp => kvp.BoardSlots
-                );
+            return BoardPositionsToBoardSlotDictionary(boardGrid, boardPositionsCollection);
         }
 
         /// <summary>
@@ -126,6 +114,82 @@ namespace Kodefoxx.Katas.FourInARow.Board
                 }
                 yield return boardPositions;
             }
+        }
+
+        /// <summary>
+        /// Gets all the <see cref="BoardSlot"/>-lines from top to bottom.
+        /// </summary>
+        public static IDictionary<int, IEnumerable<BoardSlot>> GetBoardSlotDiagonalBottomToTopLines(this IReadOnlyBoardGrid boardGrid)
+        {
+            var boardPositionsCollection = new List<List<BoardPosition>>()
+                .Concat(GetPositionsBottomToTopLeftHalf(boardGrid))
+                .Concat(GetPositionsBottomToTopRightHalf(boardGrid));
+
+            return BoardPositionsToBoardSlotDictionary(boardGrid, boardPositionsCollection);
+        }
+
+        /// <summary>
+        /// Calculate <see cref="BoardPosition"/>s starting from the top with the row as start and the row as limiter.
+        /// </summary>
+        private static IEnumerable<List<BoardPosition>> GetPositionsBottomToTopLeftHalf(IReadOnlyBoardGrid boardGrid)
+        {
+            foreach (var rowIndex in Enumerable.Range(1, boardGrid.Rows))
+            {
+                var boardPositions = new List<BoardPosition>();
+                for (var subtractor = 1; subtractor <= boardGrid.Columns; subtractor++)
+                {
+                    var calculatedRow = (rowIndex + 1) - subtractor;
+                    if (calculatedRow <= boardGrid.Rows)
+                    {
+                        boardPositions.Add(new BoardPosition(
+                            row: calculatedRow,
+                            column: subtractor)
+                        );
+                    }
+                }
+                yield return boardPositions;
+            }
+        }
+
+        /// <summary>
+        /// Calculate <see cref="BoardPosition"/>s starting from the column with the column as start and the row as limiter.
+        /// </summary>
+        private static IEnumerable<List<BoardPosition>> GetPositionsBottomToTopRightHalf(IReadOnlyBoardGrid boardGrid)
+        {
+            foreach (var columnIndex in Enumerable.Range(1, boardGrid.Columns))
+            {
+                var boardPositions = new List<BoardPosition>();
+                for (var subtractor = 1; subtractor <= boardGrid.Rows; subtractor++)
+                {
+                    var calculatedColumn = (columnIndex + 1) - subtractor;
+                    if (calculatedColumn <= boardGrid.Columns)
+                    {
+                        boardPositions.Add(new BoardPosition(
+                            row: subtractor,
+                            column: calculatedColumn)
+                        );
+                    }
+                }
+                yield return boardPositions;
+            }
+        }
+
+        /// <summary>
+        /// Transfroms a collection of <see cref="BoardPosition"/>s to a dictionary of the concrete <see cref="BoardSlot"/>s from a given <paramref name="boardGrid"/>.
+        /// </summary>        
+        private static Dictionary<int, IEnumerable<BoardSlot>> BoardPositionsToBoardSlotDictionary(IReadOnlyBoardGrid boardGrid, IEnumerable<List<BoardPosition>> boardPositionsCollection)
+        {
+            return boardPositionsCollection
+                .Select(boardPositions =>
+                    boardPositions
+                        .Select(boardPosition => boardGrid.State.SingleOrDefault(slot => slot.Position.Equals(boardPosition)))
+                        .Where(slot => slot != null)
+                )
+                .Select((boardSlots, i) => new { BoardSlots = boardSlots, Index = i })
+                .ToDictionary(
+                    keySelector: kvp => kvp.Index,
+                    elementSelector: kvp => kvp.BoardSlots
+                );
         }
     }
 }
