@@ -49,14 +49,19 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// <inheritdocs/>
         public WinState GetWinState()
         {
+            var winState = new WinState(WinMethod.None);
+
             foreach (var winStateCalculator in _winStateCalculators)
             {
                 var result = winStateCalculator.Calculate(this);
                 if(result.Winner.HasValue)
-                    return new WinState(result.Method, result.Winner);
+                    winState = new WinState(result.Method, result.Winner);
             }
 
-            return new WinState(WinMethod.None);
+            if(IsBoardFull() && winState.Method == WinMethod.None)
+                return new WinState(WinMethod.Draw);
+
+            return winState;
         }                   
 
         /// <inheritdocs/>

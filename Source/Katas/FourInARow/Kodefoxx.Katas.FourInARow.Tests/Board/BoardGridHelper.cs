@@ -88,6 +88,16 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                         {BoardSlotValue.P1, BoardSlotValue.Empty, BoardSlotValue.Empty, BoardSlotValue.Empty}
                     })
                 ),
+                (
+                    WinMethod: WinMethod.Draw,
+                    Board: new BoardGrid(new[,]
+                    {
+                        {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2, BoardSlotValue.P2},
+                        {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P1, BoardSlotValue.P1},
+                        {BoardSlotValue.P2, BoardSlotValue.P1, BoardSlotValue.P1, BoardSlotValue.P1},
+                        {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P1, BoardSlotValue.P1}
+                    })
+                ),
             }
         );        
 }
