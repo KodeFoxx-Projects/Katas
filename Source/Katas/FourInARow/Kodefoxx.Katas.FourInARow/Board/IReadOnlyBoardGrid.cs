@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Kodefoxx.Katas.FourInARow.Winning;
 
 namespace Kodefoxx.Katas.FourInARow.Board
 {
@@ -20,6 +21,6 @@ namespace Kodefoxx.Katas.FourInARow.Board
         /// <summary>
         /// The number of columns (or the width) of the board.
         /// </summary>
-        int Columns { get; }
+        int Columns { get; }        
     }
 }
