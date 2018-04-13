@@ -42,7 +42,7 @@ namespace Kodefoxx.Katas.FourInARow.Winning.WinStateCalculators
             {
                 if (boardSlots.Count < winningCount) continue;
 
-                var orderedSlots = orderFunction?.Invoke(boardSlots) ?? boardSlots.OrderBy(x => x);
+                var orderedSlots = orderFunction?.Invoke(boardSlots).ToList() ?? boardSlots;
                 var result = CalculateForOrderedBoardSlotValues(orderedSlots, winningCount);
                 if (result.Winner.HasValue)
                     return result;
@@ -57,11 +57,11 @@ namespace Kodefoxx.Katas.FourInARow.Winning.WinStateCalculators
         /// <param name="orderedSlots">The order <see cref="BoardSlot"/>s</param>        
         /// <param name="winningCount">The amount needed for a win.</param>
         private WinStateCalculatorResult CalculateForOrderedBoardSlotValues(
-            IOrderedEnumerable<BoardSlot> orderedSlots, int winningCount = 4)
+            List<BoardSlot> orderedSlots, int winningCount = 4)
         {
             var counter = 0;
             var valueToCount = BoardSlotValue.Empty;
-            foreach (var slotValue in orderedSlots.ToList())
+            foreach (var slotValue in orderedSlots)
             {
                 if (slotValue.Value == BoardSlotValue.Empty)
                 {

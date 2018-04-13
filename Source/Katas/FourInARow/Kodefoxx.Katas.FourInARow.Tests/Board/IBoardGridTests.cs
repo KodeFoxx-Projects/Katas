@@ -119,7 +119,7 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                 .Boards
                 .Where(x => 
                     x.WinMethod != WinMethod.None
-                 && x.WinMethod != WinMethod.Draw
+                 && x.WinMethod != WinMethod.Draw                 
                 )
                 .Select(x => new object[]
                 {

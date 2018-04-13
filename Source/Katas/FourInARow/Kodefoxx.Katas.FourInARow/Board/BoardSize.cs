@@ -39,14 +39,12 @@
         {
             if (obj == null) return false;
             if (ReferenceEquals(this, obj)) return true;
-
-            var boardSize = obj as BoardSize;
-            if (boardSize == null) return false;
+            if (!(obj is BoardSize boardSize)) return false;
 
             return
                 boardSize.GetHashCode() == GetHashCode()
-             && boardSize.Width == boardSize.Width
-             && boardSize.Height == boardSize.Height;
+             && boardSize.Width == Width
+             && boardSize.Height == Height;
         }
 
         /// <inheritdocs/>
@@ -54,7 +52,7 @@
         {
             unchecked
             {
-                int hash = 17;
+                var hash = 17;
                 hash = hash * 23 + Width.GetHashCode();
                 hash = hash * 23 + Height.GetHashCode();
                 return hash;
