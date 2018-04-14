@@ -32,16 +32,35 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         {
             Console.BackgroundColor = ConsoleColor.Black;
 
-            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(7, 5));
+            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(9, 7));
 
             while (!Game.HasWinner() || Game.GetWinState().Method == WinMethod.Draw)
-            {
-                VisualiseGame(Game);
-                Console.ReadLine();
+            {                                
+                VisualiseGame(Game, isDone: false);
+                Game.PlayValueInColumn(AskPlayerForColumnIndex());
             }
 
+            VisualiseGame(Game, isDone: true);
+
             Console.ReadLine();
-        }        
+        }
+
+        private int AskPlayerForColumnIndex()
+        {
+            ChangeToColor(ConsoleColor.Cyan);
+            Console.SetCursorPosition(HeaderPaddingLeft + 2 + Game.CurrentPlayer.Name.Length + 36, 8);
+            var givenColumnIndex = Console.ReadLine();
+
+            return Int32.Parse(givenColumnIndex);
+        }
+        private void PrintAskPlayerForColumnIndex()
+        {
+            ChangeToColor(ConsoleColor.Cyan);
+            Console.WriteLine();
+            Console.Write($"{GeneratePadding(HeaderPaddingLeft + 2)}> ");
+            ChangeToColor(ConsoleColor.White);
+            Console.Write($"{Game.CurrentPlayer.Name}, enter the number of the column: ");            
+        }
 
         /// <summary>
         /// Asks the player name via console input.
@@ -69,7 +88,7 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         /// <summary>
         /// Visualises the <paramref name="game"/>.
         /// </summary>        
-        private void VisualiseGame(IFourInARowGame game)
+        private void VisualiseGame(IFourInARowGame game, bool isDone = false)
         {
             PrintGameHeader(clearScreen: true);
 
@@ -77,9 +96,18 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
             var winMethodValue = game.GetWinState().Method == WinMethod.None ? "The game is still on!" : game.GetWinState().Method.ToString();
             PrintTopInfoBox(winMethodLabel, winMethodValue, HeaderSize.Height, HeaderSize.Width - 6 - winMethodLabel.Length - winMethodValue.Length);
 
-            var currentPlayerLabel = "Current player";
-            var currentPlayerValue = game.CurrentPlayer.Name;
+            var currentPlayerLabel = isDone ? "Winner" : "Current player";
+            var currentPlayerValue = isDone 
+                ? game.GetWinState().Winner.HasValue
+                    ? game.GetWinState().Winner.Value == BoardSlotValue.P1
+                      ? game.PlayerOne.Name
+                      : game.PlayerTwo.Name
+                    : "Draw"
+                : game.CurrentPlayer.Name;
             PrintTopInfoBox(currentPlayerLabel, currentPlayerValue, HeaderSize.Height, 0, HeaderPaddingLeft + 2);
+
+            if(!isDone)
+                PrintAskPlayerForColumnIndex();            
 
             Console.WriteLine();
             Console.WriteLine();
