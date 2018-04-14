@@ -138,6 +138,18 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                         {0, 2, 2, 1, 2, 0, 0}
                     })
                 ),
+                (
+                    WinMethod: WinMethod.DiagonalBottomToTop,
+                    Board: ConvertIntegerArrayToBoard(new[,]
+                    {
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 1, 1, 0},
+                        {0, 0, 0, 1, 1, 2, 0},
+                        {0, 0, 1, 1, 2, 1, 0},
+                        {0, 2, 1, 2, 2, 2, 0},
+                        {0, 2, 2, 1, 2, 2, 0}
+                    })
+                ),
             }
         );
     }
