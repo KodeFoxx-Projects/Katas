@@ -61,15 +61,21 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
 
             Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), boardSize);
 
-            while (Game.GetWinState().Method == WinMethod.None)
-            {                                
-                VisualiseGame(Game, isDone: false);
-                Game.PlayValueInColumn(AskPlayerForColumnIndex());
-            }
+            try
+            {
+                while (Game.GetWinState().Method == WinMethod.None)
+                {
+                    VisualiseGame(Game, isDone: false);
+                    Game.PlayValueInColumn(AskPlayerForColumnIndex());
+                }
 
-            VisualiseGame(Game, isDone: true);
+                VisualiseGame(Game, isDone: true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Fatal error occured: " + ex);
+            }
             
-            //Console.WriteLine($"{GeneratePadding(HeaderPaddingLeft+4)}<< Press ENTER to exit the game >>");            
             Console.ReadLine();
         }
 
@@ -160,13 +166,13 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
 
             Console.WriteLine();
             Console.WriteLine();
-            PrintBoard(game.Board, HeaderPaddingLeft + 2);            
+            PrintBoard(game.Board, HeaderPaddingLeft + 2, isDone);            
         }
 
         /// <summary>
         /// Prints the board
         /// </summary>
-        private void PrintBoard(IReadOnlyBoardGrid board, int paddingLeft)
+        private void PrintBoard(IReadOnlyBoardGrid board, int paddingLeft, bool isDone = false)
         {            
             var boardSize = board.ToBoardSize();
             paddingLeft = ((HeaderSize.Width / 2) - ((boardSize.Width * 7) + 2 + 4)/2);
@@ -181,7 +187,7 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
                 Console.WriteLine($"{GeneratePadding(paddingLeft)}{rowIndex:00}  +{RepeatString(boardSize.Width, "+     +")}+");
                 Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+     +")}+");
                 Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+++++++")}+");
-            }
+            }            
 
             PrintGameHeader(clearScreen: false);
 
@@ -193,6 +199,12 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
                 ChangeToColorBasedOnSlotValue(boardSlot.Value);
                 Console.Write("O");
             }
+
+            //if(isDone)
+            //Console.SetCursorPosition(0, 13 + (4 * (board.Rows)));
+            if (!isDone) return;
+            ChangeToColor(ConsoleColor.Black);
+            Console.SetCursorPosition(0, 0);
         }
 
         private void ChangeToColorBasedOnSlotValue(BoardSlotValue boardSlotValue)
