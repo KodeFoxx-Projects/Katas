@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Kodefoxx.Katas.FourInARow;
 using Kodefoxx.Katas.FourInARow.Board;
 using Kodefoxx.Katas.FourInARow.Winning;
@@ -25,14 +26,36 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         /// </summary>
         private IFourInARowGame Game { get; set; }
 
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        private static extern IntPtr GetConsoleWindow();
+        private static IntPtr ThisConsole = GetConsoleWindow();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private const int HIDE = 0;
+        private const int MAXIMIZE = 3;
+        private const int MINIMIZE = 6;
+        private const int RESTORE = 9;
+
         /// <summary>
         /// Starts the game.
         /// </summary>
         private void Run(string[] args)
-        {
+        {            
             var boardSize = new BoardSize(7, 6);
             if (args.Length == 2)            
                 boardSize = new BoardSize(Int32.Parse(args[0]), Int32.Parse(args[1]));
+
+            Console.BackgroundColor = ConsoleColor.White;
+
+            try
+            {
+                Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+                ShowWindow(ThisConsole, MAXIMIZE);
+            }
+            catch (Exception ex)
+            {
+            }
 
             Console.BackgroundColor = ConsoleColor.Black;
 
