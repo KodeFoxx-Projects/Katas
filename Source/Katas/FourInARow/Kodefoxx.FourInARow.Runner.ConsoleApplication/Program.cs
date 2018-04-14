@@ -79,7 +79,15 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
             Console.SetCursorPosition(HeaderPaddingLeft + 2 + Game.CurrentPlayer.Name.Length + 36, 8);
             var givenColumnIndex = Console.ReadLine();
 
-            return Int32.Parse(givenColumnIndex);
+            try
+            {
+                Int32.TryParse(givenColumnIndex, out var parsedColumnIndex);
+                return parsedColumnIndex;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
         private void PrintAskPlayerForColumnIndex()
         {
