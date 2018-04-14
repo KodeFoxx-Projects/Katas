@@ -32,7 +32,7 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         {
             Console.BackgroundColor = ConsoleColor.Black;
 
-            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(4, 4));
+            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(7, 6));
 
             while (Game.GetWinState().Method == WinMethod.None)
             {                                
@@ -145,7 +145,7 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
 
                 ChangeToColor(boardSlot.Value == BoardSlotValue.P1 
                     ? ConsoleColor.Red 
-                    : ConsoleColor.DarkYellow
+                    : ConsoleColor.Yellow
                 );
                 Console.Write("O");
             }
