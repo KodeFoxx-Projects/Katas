@@ -13,7 +13,7 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         /// </summary>
         /// <param name="args">Array of strings with arguments to the application.</param>
         public static void Main(string[] args)
-            => new FourInARowConsoleGame().Run();        
+            => new FourInARowConsoleGame().Run(args);        
 
         /// <summary>
         /// Creates a new <see cref="FourInARowConsoleGame"/>.
@@ -28,11 +28,15 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         /// <summary>
         /// Starts the game.
         /// </summary>
-        private void Run()
+        private void Run(string[] args)
         {
+            var boardSize = new BoardSize(7, 6);
+            if (args.Length == 2)            
+                boardSize = new BoardSize(Int32.Parse(args[0]), Int32.Parse(args[1]));
+
             Console.BackgroundColor = ConsoleColor.Black;
 
-            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(7, 6));
+            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), boardSize);
 
             while (Game.GetWinState().Method == WinMethod.None)
             {                                
@@ -41,7 +45,8 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
             }
 
             VisualiseGame(Game, isDone: true);
-
+            
+            //Console.WriteLine($"{GeneratePadding(HeaderPaddingLeft+4)}<< Press ENTER to exit the game >>");            
             Console.ReadLine();
         }
 
@@ -58,8 +63,10 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
             ChangeToColor(ConsoleColor.Cyan);
             Console.WriteLine();
             Console.Write($"{GeneratePadding(HeaderPaddingLeft + 2)}> ");
+            ChangeToColorBasedOnSlotValue(Game.CurrentPlayer.Type);
+            Console.Write($"{Game.CurrentPlayer.Name}");
             ChangeToColor(ConsoleColor.White);
-            Console.Write($"{Game.CurrentPlayer.Name}, enter the number of the column: ");            
+            Console.Write($", enter the number of the column: ");
         }
 
         /// <summary>
@@ -104,7 +111,16 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
                       : game.PlayerTwo.Name
                     : "No winner due to 'Draw Game'"
                 : game.CurrentPlayer.Name;
-            PrintTopInfoBox(currentPlayerLabel, currentPlayerValue, HeaderSize.Height, 0, HeaderPaddingLeft + 2);
+
+            var playerColor = ConsoleColor.White;
+            if (game.GetWinState().HasWinner)
+                playerColor = GetColorBasedOnSlotValue(game.GetWinState().Winner.Value);
+            if (game.GetWinState().Method == WinMethod.Draw)
+                playerColor = ConsoleColor.DarkMagenta;
+            if (game.GetWinState().Method == WinMethod.None)
+                playerColor = GetColorBasedOnSlotValue(game.CurrentPlayer.Type);
+
+            PrintTopInfoBox(currentPlayerLabel, currentPlayerValue, HeaderSize.Height, 0, HeaderPaddingLeft + 2, playerColor);
 
             if(!isDone)
                 PrintAskPlayerForColumnIndex();
@@ -143,19 +159,25 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
                 var position = boardSlot.Position;
                 Console.SetCursorPosition(paddingLeft + 4 + (7 * position.Column) - 3, 13 + (4 * (position.Row - 1)));
 
-                ChangeToColor(boardSlot.Value == BoardSlotValue.P1 
-                    ? ConsoleColor.Red 
-                    : ConsoleColor.Yellow
-                );
+                ChangeToColorBasedOnSlotValue(boardSlot.Value);
                 Console.Write("O");
             }
         }
 
+        private void ChangeToColorBasedOnSlotValue(BoardSlotValue boardSlotValue)
+            => ChangeToColor(GetColorBasedOnSlotValue(boardSlotValue))
+        ;        
+
+        private ConsoleColor GetColorBasedOnSlotValue(BoardSlotValue boardSlotValue)
+            => boardSlotValue == BoardSlotValue.P1
+                ? ConsoleColor.Red
+                : ConsoleColor.Yellow
+        ;
 
         /// <summary>
         /// Prints an infobox below the header.
         /// </summary>        
-        private void PrintTopInfoBox(string label, string content, int topPosition, int leftPosition, int paddingLeft = 0)
+        private void PrintTopInfoBox(string label, string content, int topPosition, int leftPosition, int paddingLeft = 0, ConsoleColor? contentColor = null)
         {
             ChangeToColor(ConsoleColor.DarkCyan);
 
@@ -165,7 +187,7 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
             Console.Write($"{label.ToUpper()}");
             ChangeToColor(ConsoleColor.DarkGray);
             Console.Write($" : ");
-            ChangeToColor(ConsoleColor.White);
+            ChangeToColor(contentColor ?? ConsoleColor.White);
             Console.Write($"{content.ToUpperInvariant()}");
             ChangeToColor(ConsoleColor.DarkCyan);
             Console.WriteLine($" |>");
