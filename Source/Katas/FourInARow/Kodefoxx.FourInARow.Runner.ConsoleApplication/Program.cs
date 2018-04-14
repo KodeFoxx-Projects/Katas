@@ -32,9 +32,9 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         {
             Console.BackgroundColor = ConsoleColor.Black;
 
-            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(9, 7));
+            Game = new FourInARowGame(AskPlayerName("one"), AskPlayerName("two"), new BoardSize(4, 4));
 
-            while (!Game.HasWinner() || Game.GetWinState().Method == WinMethod.Draw)
+            while (Game.GetWinState().Method == WinMethod.None)
             {                                
                 VisualiseGame(Game, isDone: false);
                 Game.PlayValueInColumn(AskPlayerForColumnIndex());
@@ -102,18 +102,18 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
                     ? game.GetWinState().Winner.Value == BoardSlotValue.P1
                       ? game.PlayerOne.Name
                       : game.PlayerTwo.Name
-                    : "Draw"
+                    : "No winner due to 'Draw Game'"
                 : game.CurrentPlayer.Name;
             PrintTopInfoBox(currentPlayerLabel, currentPlayerValue, HeaderSize.Height, 0, HeaderPaddingLeft + 2);
 
             if(!isDone)
-                PrintAskPlayerForColumnIndex();            
+                PrintAskPlayerForColumnIndex();
+            else
+                Console.WriteLine();
 
             Console.WriteLine();
             Console.WriteLine();
-            PrintBoard(game.Board, HeaderPaddingLeft + 2);
-
-            PrintGameHeader(clearScreen: false);
+            PrintBoard(game.Board, HeaderPaddingLeft + 2);            
         }
 
         /// <summary>
@@ -134,7 +134,21 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
                 Console.WriteLine($"{GeneratePadding(paddingLeft)}{rowIndex:00}  +{RepeatString(boardSize.Width, "+     +")}+");
                 Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+     +")}+");
                 Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+++++++")}+");
-            }            
+            }
+
+            PrintGameHeader(clearScreen: false);
+
+            foreach (var boardSlot in board.State.Where(slot => slot.Value != BoardSlotValue.Empty))
+            {
+                var position = boardSlot.Position;
+                Console.SetCursorPosition(paddingLeft + 4 + (7 * position.Column) - 3, 13 + (4 * (position.Row - 1)));
+
+                ChangeToColor(boardSlot.Value == BoardSlotValue.P1 
+                    ? ConsoleColor.Red 
+                    : ConsoleColor.DarkYellow
+                );
+                Console.Write("O");
+            }
         }
 
 
