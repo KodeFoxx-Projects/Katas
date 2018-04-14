@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Security.Claims;
+using System.Linq;
 using Kodefoxx.Katas.FourInARow;
 using Kodefoxx.Katas.FourInARow.Board;
 using Kodefoxx.Katas.FourInARow.Winning;
@@ -52,9 +52,13 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
 
             ChangeToColor(ConsoleColor.Cyan);
             Console.WriteLine();
-            Console.Write($"{GeneratePadding(HeaderPaddingLeft + 2)}> Player {playerName}'s name: ");
+            Console.Write($"{GeneratePadding(HeaderPaddingLeft + 2)}> ");
+            ChangeToColor(ConsoleColor.White);
+            Console.Write($"Player {playerName}'s name: ");
+            PrintGameHeader(clearScreen: false);
 
-            ChangeToColor(ConsoleColor.DarkCyan);
+            ChangeToColor(ConsoleColor.Cyan);
+            Console.SetCursorPosition(HeaderPaddingLeft + 2 + playerName.Length + 18, 6);
             var givenPlayerName = Console.ReadLine();
 
             ChangeToDefaultColor();
@@ -75,9 +79,40 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
 
             var currentPlayerLabel = "Current player";
             var currentPlayerValue = game.CurrentPlayer.Name;
-            PrintTopInfoBox(currentPlayerLabel, currentPlayerValue, HeaderSize.Height, 0, HeaderPaddingLeft + 2);            
+            PrintTopInfoBox(currentPlayerLabel, currentPlayerValue, HeaderSize.Height, 0, HeaderPaddingLeft + 2);
+
+            Console.WriteLine();
+            Console.WriteLine();
+            PrintBoard(game.Board, HeaderPaddingLeft + 2);
+
+            PrintGameHeader(clearScreen: false);
         }
 
+        /// <summary>
+        /// Prints the board
+        /// </summary>
+        private void PrintBoard(IReadOnlyBoardGrid board, int paddingLeft)
+        {            
+            var boardSize = board.ToBoardSize();
+            paddingLeft = ((HeaderSize.Width / 2) - ((boardSize.Width * 7) + 2 + 4)/2);
+
+            var columnHeader = String.Join("", Enumerable.Range(1, boardSize.Width).Select(columnIndex => $"    {columnIndex:00} "));
+            Console.WriteLine($"{GeneratePadding(paddingLeft + 4)}{columnHeader}");
+            Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{GeneratePadding(boardSize.Width * 7, '+')}+");
+
+            foreach (var rowIndex in Enumerable.Range(1, boardSize.Height))
+            {
+                Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+     +")}+");
+                Console.WriteLine($"{GeneratePadding(paddingLeft)}{rowIndex:00}  +{RepeatString(boardSize.Width, "+     +")}+");
+                Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+     +")}+");
+                Console.WriteLine($"{GeneratePadding(paddingLeft+4)}+{RepeatString(boardSize.Width, "+++++++")}+");
+            }            
+        }
+
+
+        /// <summary>
+        /// Prints an infobox below the header.
+        /// </summary>        
         private void PrintTopInfoBox(string label, string content, int topPosition, int leftPosition, int paddingLeft = 0)
         {
             ChangeToColor(ConsoleColor.DarkCyan);
@@ -105,14 +140,20 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         /// <param name="clearScreen">Determines whether to clear the scren or not.</param>
         private void PrintGameHeader(bool clearScreen = true)
         {
-            if(clearScreen) Console.Clear();
-            
+            if(clearScreen) Console.Clear();            
+
             ChangeToColor(ConsoleColor.DarkCyan);
 
             Console.WriteLine();
             Console.WriteLine();
 
-            Console.WriteLine($"{GeneratePadding(HeaderPaddingLeft)}{HeaderTop}");
+            if (!clearScreen)
+            {
+                Console.WriteLine($"{GeneratePadding(HeaderPaddingLeft)}{HeaderBottom}");
+                return;
+            }
+            
+            Console.WriteLine($"{GeneratePadding(HeaderPaddingLeft)}{HeaderTop}");            
 
             Console.Write($"{ GeneratePadding(HeaderPaddingLeft)}|** *  *   "); //11
             ChangeToColor(ConsoleColor.Cyan);
@@ -136,17 +177,20 @@ namespace Kodefoxx.FourInARow.Runner.ConsoleApplication
         private string HeaderBottom =>
             $"\\{new string('*', HeaderTop.Length - 2)}/";
         private string HeaderTop =>
-            $"/{new string('*', 95)}\\";
+            $"/{new string('*', 105)}\\";
 
         private string HeaderTitle => "F O U R   I N   A   R O W";        
 
         private string GeneratePadding(int length, char @char = ' ') => $"{new string(@char, length)}";
 
-    /// <summary>
-    /// Changes the foreground color.
-    /// </summary>
-    /// <param name="newColor"></param>
-    private void ChangeToColor(ConsoleColor newColor)
+        private string RepeatString(int length, string @string = " ") =>
+            String.Join("", Enumerable.Range(0, length).Select(x => @string));
+
+        /// <summary>
+        /// Changes the foreground color.
+        /// </summary>
+        /// <param name="newColor"></param>
+        private void ChangeToColor(ConsoleColor newColor)
             => Console.ForegroundColor = newColor;
 
         /// <summary>
