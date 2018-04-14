@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Kodefoxx.Katas.FourInARow.Board;
 using Kodefoxx.Katas.FourInARow.Winning;
 
@@ -23,6 +24,33 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                 {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2, BoardSlotValue.P1},
                 {BoardSlotValue.P1, BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P2}
             });
+
+        public static IBoardGrid ConvertIntegerArrayToBoard(int[,] integerArray)
+        {
+            var boardGridSlotValues = new BoardSlotValue[integerArray.GetLength(0), integerArray.GetLength(1)];
+
+            foreach (var i in Enumerable.Range(0, integerArray.GetLength(0)))
+            {
+                foreach (var j in Enumerable.Range(0, integerArray.GetLength(1)))
+                {
+                    switch (integerArray[i, j])
+                    {
+                        case 1:
+                            boardGridSlotValues[i, j] = BoardSlotValue.P1;
+                            break;
+                        case 2:
+                            boardGridSlotValues[i, j] = BoardSlotValue.P2;
+                            break;
+                        default:
+                            boardGridSlotValues[i, j] = BoardSlotValue.Empty;
+                            break;
+                    }
+                }
+            }
+
+            var boardGrid = new BoardGrid(boardGridSlotValues);
+            return boardGrid;
+        }
 
         public static (BoardSlotValue Winner, IEnumerable<(WinMethod WinMethod, IBoardGrid Board)> Boards)
             CreateWinningBoardGridForPlayerOne() => (
@@ -98,7 +126,19 @@ namespace Kodefoxx.Katas.FourInARow.Tests.Board
                         {BoardSlotValue.P1, BoardSlotValue.P2, BoardSlotValue.P1, BoardSlotValue.P1}
                     })
                 ),
+                (
+                    WinMethod: WinMethod.DiagonalBottomToTop,
+                    Board: ConvertIntegerArrayToBoard(new[,]
+                    {
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 1, 0, 0},
+                        {0, 0, 0, 1, 1, 0, 0},
+                        {0, 0, 1, 1, 2, 0, 0},
+                        {0, 1, 2, 2, 2, 0, 0},
+                        {0, 2, 2, 1, 2, 0, 0}
+                    })
+                ),
             }
-        );        
-}
+        );
+    }
 }
