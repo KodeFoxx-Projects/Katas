@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Kodefoxx.Katas.Anagrams.Shared;
 using Kodefoxx.Katas.Anagrams.Strategies.MetadataAnagramSolverStrategy;
+using Kodefoxx.Katas.Anagrams.Tests.Shared;
 using Xunit;
 
 namespace Kodefoxx.Katas.Anagrams.Tests.Strategies.MetadataAnagramSolverStrategy
@@ -25,20 +26,20 @@ namespace Kodefoxx.Katas.Anagrams.Tests.Strategies.MetadataAnagramSolverStrategy
             {
                 new object[]
                 {
-                    Words.WordListContainingOnlyAnagrams,
-                    Words.AnagramSolverResultBasedOnWordListContainingOnlyAnagrams
+                    TestData.WordListContainingOnlyAnagrams,
+                    TestData.AnagramSolverResultBasedOnWordListContainingOnlyAnagrams
                 },
 
                 new object[]
                 {
-                    Words.WordListContainingNoAnagrams,
-                    Words.EmptyAnagramSolverResult
+                    TestData.WordListContainingNoAnagrams,
+                    TestData.EmptyAnagramSolverResult
                 },
 
                 new object[]
                 {
-                    Words.WordListContainingBothAnagramsAndNone,
-                    Words.AnagramSolverResultBasedOnWordListContainingOnlyAnagrams
+                    TestData.WordListContainingBothAnagramsAndNone,
+                    TestData.AnagramSolverResultBasedOnWordListContainingOnlyAnagrams
                 },
             }
         ;
@@ -47,7 +48,7 @@ namespace Kodefoxx.Katas.Anagrams.Tests.Strategies.MetadataAnagramSolverStrategy
         public async void Returns_empty_anagram_result_when_no_anagrams_were_found()
         {
             var sut = CreateSystemUnderTest();
-            var actual = await sut.GetAnagrams(Words.WordListContainingNoAnagrams);
+            var actual = await sut.GetAnagrams(TestData.WordListContainingNoAnagrams);
 
             Assert.NotNull(actual);
             Assert.Empty(actual.Anagrams);

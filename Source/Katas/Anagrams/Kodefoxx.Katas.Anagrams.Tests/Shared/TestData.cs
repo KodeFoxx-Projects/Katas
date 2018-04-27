@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Kodefoxx.Katas.Anagrams.Shared;
 
-namespace Kodefoxx.Katas.Anagrams.Tests
+namespace Kodefoxx.Katas.Anagrams.Tests.Shared
 {
-    public static class Words
+    public static class TestData
     {
         public static AnagramSolverResult AnagramSolverResultBasedOnWordListContainingOnlyAnagrams
             => new AnagramSolverResult(

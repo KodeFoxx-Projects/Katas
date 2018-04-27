@@ -14,10 +14,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kodefoxx.Katas.Anagrams\Kodefoxx.Katas.Anagrams.csproj" />
+    <ProjectReference Include="..\Kodefoxx.Katas.WordChains\Kodefoxx.Katas.WordChains.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Strategies\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestHelpers\WordLists\english3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestHelpers\WordLists\nederlands3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestHelpers\WordLists\wordlist.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="xunit.runner.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

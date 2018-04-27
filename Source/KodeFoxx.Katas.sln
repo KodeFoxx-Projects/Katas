@@ -38,15 +38,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FourInARow", "FourInARow", 
 		Katas\FourInARow\README.md = Katas\FourInARow\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodefoxx.Katas.FourInARow", "Katas\FourInARow\Kodefoxx.Katas.FourInARow\Kodefoxx.Katas.FourInARow.csproj", "{C61D6FE9-304B-4E26-8A91-0270840B83E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.FourInARow", "Katas\FourInARow\Kodefoxx.Katas.FourInARow\Kodefoxx.Katas.FourInARow.csproj", "{C61D6FE9-304B-4E26-8A91-0270840B83E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{671F81B6-3BB6-4D3A-A07A-C2EEEF5F26A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodefoxx.Katas.FourInARow.Tests", "Katas\FourInARow\Kodefoxx.Katas.FourInARow.Tests\Kodefoxx.Katas.FourInARow.Tests.csproj", "{A476938C-CF8B-4CE2-B9C2-77B850854758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.FourInARow.Tests", "Katas\FourInARow\Kodefoxx.Katas.FourInARow.Tests\Kodefoxx.Katas.FourInARow.Tests.csproj", "{A476938C-CF8B-4CE2-B9C2-77B850854758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodefoxx.FourInARow.Runner.ConsoleApplication", "Katas\FourInARow\Kodefoxx.FourInARow.Runner.ConsoleApplication\Kodefoxx.FourInARow.Runner.ConsoleApplication.csproj", "{FA235923-B627-4421-BCAA-E03BC273006F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.FourInARow.Runner.ConsoleApplication", "Katas\FourInARow\Kodefoxx.FourInARow.Runner.ConsoleApplication\Kodefoxx.FourInARow.Runner.ConsoleApplication.csproj", "{FA235923-B627-4421-BCAA-E03BC273006F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runners", "Runners", "{FFFD05D4-93AF-41B0-9A9F-62C1EEBDE1CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WordChains", "WordChains", "{DB5B308C-7D65-4F5F-A308-BE5D0CD95389}"
+	ProjectSection(SolutionItems) = preProject
+		Katas\WordChains\README.md = Katas\WordChains\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{85B673BC-F9D1-4F0C-ADE3-C23611F134F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.WordChains", "Katas\WordChains\Kodefoxx.Katas.WordChains\Kodefoxx.Katas.WordChains.csproj", "{3FA50065-565E-4AB3-87F1-F48ED050BB11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.WordChains.Tests", "Katas\WordChains\Kodefoxx.Katas.WordChains.Tests\Kodefoxx.Katas.WordChains.Tests.csproj", "{B623068A-6BB1-4BF6-AA74-B4D97221BB81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +101,14 @@ Global
 		{FA235923-B627-4421-BCAA-E03BC273006F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA235923-B627-4421-BCAA-E03BC273006F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA235923-B627-4421-BCAA-E03BC273006F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA50065-565E-4AB3-87F1-F48ED050BB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA50065-565E-4AB3-87F1-F48ED050BB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FA50065-565E-4AB3-87F1-F48ED050BB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA50065-565E-4AB3-87F1-F48ED050BB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +130,10 @@ Global
 		{A476938C-CF8B-4CE2-B9C2-77B850854758} = {671F81B6-3BB6-4D3A-A07A-C2EEEF5F26A4}
 		{FA235923-B627-4421-BCAA-E03BC273006F} = {FFFD05D4-93AF-41B0-9A9F-62C1EEBDE1CB}
 		{FFFD05D4-93AF-41B0-9A9F-62C1EEBDE1CB} = {7EB37A39-D218-4FCA-94F4-2A9C3AE35A51}
+		{DB5B308C-7D65-4F5F-A308-BE5D0CD95389} = {F979814F-C26C-470E-A58A-07D211288FC9}
+		{85B673BC-F9D1-4F0C-ADE3-C23611F134F2} = {DB5B308C-7D65-4F5F-A308-BE5D0CD95389}
+		{3FA50065-565E-4AB3-87F1-F48ED050BB11} = {DB5B308C-7D65-4F5F-A308-BE5D0CD95389}
+		{B623068A-6BB1-4BF6-AA74-B4D97221BB81} = {85B673BC-F9D1-4F0C-ADE3-C23611F134F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61213541-8D83-4F61-8979-322B98C3171E}
