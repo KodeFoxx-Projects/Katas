@@ -42,5 +42,40 @@ namespace Kodefoxx.Katas.WordChains.Tests.Shared.WordLists
                 )
             )
         ;
+
+        [Theory,
+         MemberData(nameof(Sanitizer_returns_words_sanitized_by_sanitizer_function_TestData))]
+        public void Sanitizer_returns_words_sanitized_by_sanitizer_function(
+            Func<IEnumerable<string>, IEnumerable<string>> wordsSanitizerFunction,
+            List<string> inputWords, List<string> expectedWords)
+        {
+            var sut = new WordList(inputWords, wordsSanitizerFunction);
+
+            Assert.Equal(expectedWords, sut.Words);
+        }
+
+        public static IEnumerable<object[]> Sanitizer_returns_words_sanitized_by_sanitizer_function_TestData()
+            => new List<object[]>
+            {
+                new object[]
+                {
+                    new Func<IEnumerable<string>, IEnumerable<string>>(words => words.Select(word => word.ToUpper())),
+                    new List<string> { "One", "  Two", "three", "  Four " },
+                    new List<string> { "ONE", "  TWO", "THREE", "  FOUR " }
+                },
+                new object[]
+                {
+                    new Func<IEnumerable<string>, IEnumerable<string>>(new TrimmedAndLowerCaseWordsSanitizer().SanitizeWords),
+                    new List<string> { "One", "Two", "three", "  Four " },
+                    new List<string> { "one", "two", "three", "four" }
+                },
+                new object[]
+                {
+                    null,
+                    new List<string> { "One", "Two", "three", "  Four " },
+                    new List<string> { "One", "Two", "three", "  Four " },
+                },
+            }
+        ;
     }
 }
