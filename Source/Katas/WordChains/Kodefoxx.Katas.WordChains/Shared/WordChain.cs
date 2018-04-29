@@ -17,7 +17,7 @@ namespace Kodefoxx.Katas.WordChains.Shared
         /// <exception cref="ArgumentNullException">When <paramref name="words"/> is null.</exception>
         /// /// <exception cref="ArgumentOutOfRangeException">When <paramref name="words"/> is smaller than two.</exception>
         public static IWordChain New(IEnumerable<string> words, TimeSpan duration)
-            => new WordChain(words, duration);
+            => new WordChain(words, duration);        
 
         /// <summary>
         /// Creates a new <see cref="WordChain"/> object.

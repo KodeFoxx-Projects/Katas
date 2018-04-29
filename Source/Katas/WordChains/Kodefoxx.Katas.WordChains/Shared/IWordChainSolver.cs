@@ -1,4 +1,6 @@
-﻿namespace Kodefoxx.Katas.WordChains.Shared
+﻿using Kodefoxx.Katas.WordChains.Shared.WordLists;
+
+namespace Kodefoxx.Katas.WordChains.Shared
 {
     /// <summary>
     /// Responsible for solving a word chain.

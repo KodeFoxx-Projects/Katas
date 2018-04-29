@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.WordChains",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodefoxx.Katas.WordChains.Tests", "Katas\WordChains\Kodefoxx.Katas.WordChains.Tests\Kodefoxx.Katas.WordChains.Tests.csproj", "{B623068A-6BB1-4BF6-AA74-B4D97221BB81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodefoxx.Katas.Shared", "Shared\Kodefoxx.Katas.Shared\Kodefoxx.Katas.Shared.csproj", "{05B3A6C3-11C3-4857-A9E3-9B99755C0B99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B623068A-6BB1-4BF6-AA74-B4D97221BB81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B3A6C3-11C3-4857-A9E3-9B99755C0B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05B3A6C3-11C3-4857-A9E3-9B99755C0B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05B3A6C3-11C3-4857-A9E3-9B99755C0B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B3A6C3-11C3-4857-A9E3-9B99755C0B99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +140,7 @@ Global
 		{85B673BC-F9D1-4F0C-ADE3-C23611F134F2} = {DB5B308C-7D65-4F5F-A308-BE5D0CD95389}
 		{3FA50065-565E-4AB3-87F1-F48ED050BB11} = {DB5B308C-7D65-4F5F-A308-BE5D0CD95389}
 		{B623068A-6BB1-4BF6-AA74-B4D97221BB81} = {85B673BC-F9D1-4F0C-ADE3-C23611F134F2}
+		{05B3A6C3-11C3-4857-A9E3-9B99755C0B99} = {A79419AB-2B19-4FCD-8AE2-C218428BC9CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61213541-8D83-4F61-8979-322B98C3171E}

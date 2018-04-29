@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Kodefoxx.Katas.WordChains.Shared
+namespace Kodefoxx.Katas.WordChains.Shared.WordLists
 {
     /// <summary>
     /// Holds a list of words in lower-case, essentially a dictionary.
