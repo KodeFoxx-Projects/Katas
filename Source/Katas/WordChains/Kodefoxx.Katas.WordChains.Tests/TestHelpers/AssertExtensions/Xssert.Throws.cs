@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers
+namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers.AssertExtensions
 {
     // Holds methods that build on Assert.Throws.
     public static partial class Xssert

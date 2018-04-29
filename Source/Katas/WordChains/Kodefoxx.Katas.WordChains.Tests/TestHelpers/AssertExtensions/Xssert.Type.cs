@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers
+namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers.AssertExtensions
 {
     // Holds methods that build on Assert.IsOfType and Assert.IsNotOfType
     public static partial class Xssert
@@ -9,18 +9,23 @@ namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers
         /// <summary>
         /// Selects a type and marks it as the system under test.
         /// </summary>
-        /// <typeparam name="TActual">The type that is under test.</typeparam>
-        /// <returns></returns>
+        /// <typeparam name="TActual">The type that is under test.</typeparam>        
         public static TypeAssertion TheActualType<TActual>()
             => TheActualType(typeof(TActual));
 
         /// <summary>
         /// Selects a type and marks it as the system under test.
         /// </summary>
-        /// <param name="actualType">The type that is under test.</param>
-        /// <returns></returns>
+        /// <param name="actualType">The type that is under test.</param>        
         public static TypeAssertion TheActualType(Type actualType)
             => new TypeAssertion(actualType);
+
+        /// <summary>
+        /// Selects a type and marks it as the system under test.
+        /// </summary>
+        /// <param name="actualTypeSelector">The lambda / function that is responsible for generating an object whom's <see cref="Type"/> will be selected.</param>        
+        public static TypeAssertion TheActualType(Func<object> actualTypeSelector)
+            => new TypeAssertion(actualTypeSelector()?.GetType() ?? typeof(object));        
 
         /// <summary>
         /// Holds chainable methods that build on <see cref="Assert"/>.IsOfType and <see cref="Assert"/>.IsNotOfType.
