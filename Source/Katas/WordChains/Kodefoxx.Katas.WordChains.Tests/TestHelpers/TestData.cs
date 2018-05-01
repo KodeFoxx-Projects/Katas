@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Kodefoxx.Katas.WordChains.Shared;
 
 namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers
 {
@@ -24,5 +26,16 @@ namespace Kodefoxx.Katas.WordChains.Tests.TestHelpers
         ;
         private static FileInfo GetFileInfo(string fileName)
             => new FileInfo($"{Path.Combine(Directory.GetCurrentDirectory(), "TestHelpers", "WordLists", fileName)}");
+
+        public static IEnumerable<IWordChain> NullWordChainCollection => null;
+        public static IEnumerable<IWordChain> EmptyWordChainCollection => Enumerable.Empty<IWordChain>();        
+        public static IEnumerable<IEnumerable<IWordChain>> NullAndEmptyWordChainCollections
+        {
+            get
+            {
+                yield return NullWordChainCollection;
+                yield return EmptyWordChainCollection;
+            }
+        }        
     }
 }

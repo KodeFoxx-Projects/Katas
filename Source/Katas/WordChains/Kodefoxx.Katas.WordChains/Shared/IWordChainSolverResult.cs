@@ -16,7 +16,7 @@ namespace Kodefoxx.Katas.WordChains.Shared
         /// <summary>
         /// Gets the <see cref="IWordChain"/>s that were found.
         /// </summary>
-        IEnumerable<IWordChain> WordChain { get; }
+        IReadOnlyCollection<IWordChain> WordChains { get; }
 
         /// <summary>
         /// Gets the amount of <see cref="IWordChain"/>s found.
